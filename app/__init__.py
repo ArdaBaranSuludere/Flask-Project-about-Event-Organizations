@@ -1,3 +1,4 @@
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -25,7 +26,7 @@ from app.my_admin.routes import MyAdminIndexView
 admin = Admin(app, name='Admin', index_view=MyAdminIndexView(), template_mode='bootstrap3')
 
 # Model ve View İçe Aktarmaları
-from app.models import Product, Category, User, Etkinlik, ReservationApplication
+from app.models import Product, Category, User, Etkinlikler, RezervBasvurulari
 from app.my_admin import ProductModelView, CategoryModelView, UserModelView
 from app.auth import auth as auth_blueprint
 
@@ -50,23 +51,26 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-if not 'Etkinlik' in locals():
-    class Etkinlik(db.Model):
+if not 'Etkinlikler' in locals():
+    class Etkinlikler(db.Model):
         etkinlik_id = db.Column(db.Integer,primary_key=True)
         etkinlik_ad = db.Column(db.String(100),nullable=False)
+        etkinlik_turu = db.Column(db.String(100),nullable=False)
         etkinlik_yeri = db.Column(db.String(100),nullable=False)
-        etkinlik_tarih = db.Column(db.Integer, nullable=False)
+        etkinlik_tarih = db.Column(db.Date, nullable=False)
         etkinlik_baslangic_saati = db.Column(db.Integer, nullable=False)
         etkinlik_bitis_saati = db.Column(db.Integer, nullable=False)
         kapasite = db.Column(db.Integer, nullable=False)
         bilet_id = db.Column(db.Integer, nullable=False)
 
-admin.add_view(ModelView(Etkinlik,db.session))
+admin.add_view(ModelView(Etkinlikler,db.session))
 
-if not 'ReservationApplication' in locals():
-    class ReservationApplication(db.Model):
+
+if not 'RezervBasvurulari' in locals():
+    class RezervBasvurulari(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        email = db.Column(db.String(120),nullable=False)
         name = db.Column(db.String(100),nullable=False)
-        email = db.Column(db.String(120),primary_key=True)
         phone_number = db.Column(db.String(15),nullable=False)
         company = db.Column(db.String(100),nullable=False)
         venue_requested = db.Column(db.Integer, nullable=False)
@@ -75,4 +79,4 @@ if not 'ReservationApplication' in locals():
         date_requested_secondary = db.Column(db.Date, nullable=False)
         about_event = db.Column(db.String(100),nullable=False)
 
-admin.add_view(ModelView(ReservationApplication,db.session))
+admin.add_view(ModelView(RezervBasvurulari,db.session))

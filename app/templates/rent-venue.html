@@ -135,7 +135,7 @@
                             <h4>Reservation Application</h4>
                         </div>
                         <div class="contact-form">
-                            <form id="contact" action="" method="post">
+                            <form id="contact" action="{{ url_for('submit_form') }}" method="post">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                 <fieldset>
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                 <fieldset>
-                                    <input name="venue-requested" type="text" id="venue-requested" placeholder="Venue Requested*" required="">
+                                    <input name="venue-requested" type="number" id="venue-requested" placeholder="Venue Requested*" required="">
                                 </fieldset>
                                 </div>
                                 <div class="col-md-6 col-sm-12">

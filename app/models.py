@@ -2,9 +2,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from flask_login import UserMixin
 
-class Etkinlik(db.Model):
+class Etkinlikler(db.Model):
     etkinlik_id = db.Column(db.Integer,primary_key=True)
     etkinlik_ad = db.Column(db.String(100),nullable=False)
+    etkinlik_turu = db.Column(db.String(100),nullable=False)
     etkinlik_yeri = db.Column(db.String(100),nullable=False)
     etkinlik_tarih = db.Column(db.Date, nullable=False)
     etkinlik_baslangic_saati = db.Column(db.Integer, nullable=False)
@@ -12,9 +13,10 @@ class Etkinlik(db.Model):
     kapasite = db.Column(db.Integer, nullable=False)
     bilet_id = db.Column(db.Integer, nullable=False)
 
-class ReservationApplication(db.Model):
+class RezervBasvurulari(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120),nullable=False)
     name = db.Column(db.String(100),nullable=False)
-    email = db.Column(db.String(120),primary_key=True)
     phone_number = db.Column(db.String(15),nullable=False)
     company = db.Column(db.String(100),nullable=False)
     venue_requested = db.Column(db.Integer, nullable=False)
