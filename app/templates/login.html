@@ -1,9 +1,8 @@
-<!-- register.html -->
-{% extends 'base.html' %}
- {% block title %} Register {% endblock %} 
+<!-- login.html -->
+{% extends 'base.html' %} {% block title %} Login {% endblock %} 
 
 {% block content %}
-<div class="py-5">
+<div class="py-5 text-center">
   <h2>Login</h2>
   <p class="lead">Sign in to your account</p>
 </div>
@@ -48,7 +47,7 @@
         {{form.remember_me.label(class="form-check-label")}}
       </div>
 
-      <div class="mb-3">{{ form.submit(class="btn btn-primary btn-lg") }}</div>
+      <div class="mb-3">{{ form.submit(class="btn btn-primary btn-lg mx-auto d-block") }}</div>
 
       <div class="mb-3" style="display: none"></div>
     </form>

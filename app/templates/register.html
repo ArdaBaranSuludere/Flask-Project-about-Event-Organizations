@@ -2,7 +2,7 @@
 {% extends 'base.html' %} {% block title %} Register {% endblock %} 
 
 {% block content %}
-<div class="py-5">
+<div class="py-5 text-center">
   <h2>Register</h2>
   <p class="lead">Create your account</p>
 </div>
@@ -52,7 +52,7 @@
         {% endif %}
       </div>
 
-      <div class="mb-3">{{ form.submit(class="btn btn-primary btn-lg") }}</div>
+      <div class="mb-3">{{ form.submit(class="btn btn-primary btn-lg mx-auto d-block") }}</div>
 
       <div class="mb-3" style="display: none"></div>
     </form>
