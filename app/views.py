@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, flash,Flask
 from app import app, db
-from app.models import RezervBasvurulari,Newsletter
+from app.models import RezervBasvurulari,Newsletter,Etkinlikler
 
 @app.route('/')
 def index():
@@ -11,9 +11,9 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route('/tickets.html')
-def tickets():
-    return render_template('tickets.html')
+# @app.route('/tickets.html')
+# def tickets():
+#     return render_template('tickets.html')
 
 @app.route('/ticket-details.html')
 def ticket_details():
@@ -76,3 +76,43 @@ def abone_form():
             flash('yeni kayıt başarılı!', 'success')
 
     return '', 204
+
+@app.route('/tickets')
+def tickets():
+    events = Etkinlikler.query.all()
+    return render_template('tickets.html', events=events)
+
+
+@app.route('/tickets-filtered', methods=['GET', 'POST'])
+def tickets_filtered():
+    if request.method == 'POST':
+        # Formdan gelen verileri al
+        selected_month = request.form.get('month')
+        selected_location = request.form.get('location')
+        print("Selected Month:", selected_month)
+        print("Selected Location:", selected_location)
+
+        # Tüm etkinlikleri veritabanından al
+        events = Etkinlikler.query.all()
+
+        # Seçilen kriterlere göre etkinlikleri filtrele
+        if selected_month=='Month':
+            print("aysız çalıştı")
+            events = [event for event in events if event.etkinlik_yeri.strip() == selected_location.strip()]
+            
+        elif selected_location=='Location':
+            print("tarihsiz çalıştı")
+            events = [event for event in events if event.etkinlik_tarih.strftime('%B') == selected_month]
+            
+        else:
+            if selected_month and selected_month.strip() != "" and selected_location and selected_location.strip() != "":
+                events = [event for event in events if event.etkinlik_yeri.strip() ==
+                           selected_location.strip() and event.etkinlik_tarih.strftime('%B') == selected_month.strip()]
+            print("ikili çalıştı")
+        
+        return render_template('tickets_filtered.html', events=events)
+    else:
+        # GET isteği için tüm etkinlikleri direkt olarak gönder
+        events = Etkinlikler.query.all()
+        print("else çalıştı")
+        return render_template('tickets_filtered.html', events=events)
