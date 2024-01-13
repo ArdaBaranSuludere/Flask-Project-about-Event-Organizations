@@ -82,8 +82,7 @@ def tickets():
     events = Etkinlikler.query.all()
     return render_template('tickets.html', events=events)
 
-
-@app.route('/tickets-filtered', methods=['GET', 'POST'])
+@app.route('/tickets_filtered', methods=['GET', 'POST'])
 def tickets_filtered():
     if request.method == 'POST':
         # Formdan gelen verileri al
@@ -97,11 +96,11 @@ def tickets_filtered():
 
         # Seçilen kriterlere göre etkinlikleri filtrele
         if selected_month=='Month':
-            print("aysız çalıştı")
+            print("tarihsiz çalıştı")
             events = [event for event in events if event.etkinlik_yeri.strip() == selected_location.strip()]
             
         elif selected_location=='Location':
-            print("tarihsiz çalıştı")
+            print("lokasyonsuz çalıştı")
             events = [event for event in events if event.etkinlik_tarih.strftime('%B') == selected_month]
             
         else:
@@ -110,9 +109,10 @@ def tickets_filtered():
                            selected_location.strip() and event.etkinlik_tarih.strftime('%B') == selected_month.strip()]
             print("ikili çalıştı")
         
-        return render_template('tickets_filtered.html', events=events)
+        return render_template('tickets.html', events=events)
     else:
         # GET isteği için tüm etkinlikleri direkt olarak gönder
         events = Etkinlikler.query.all()
+        events = [event for event in events if event.etkinlik_yeri.strip() == 'Radio City Musical Hall']
         print("else çalıştı")
-        return render_template('tickets_filtered.html', events=events)
+        return render_template('tickets.html', events=events)
