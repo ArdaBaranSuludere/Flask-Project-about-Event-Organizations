@@ -25,6 +25,10 @@ class RezervBasvurulari(db.Model):
     date_requested_secondary = db.Column(db.Date, nullable=False)
     about_event = db.Column(db.String(100),nullable=False)
 
+class Newsletter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120),nullable=False)
+
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)

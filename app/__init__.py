@@ -26,7 +26,7 @@ from app.my_admin.routes import MyAdminIndexView
 admin = Admin(app, name='Admin', index_view=MyAdminIndexView(), template_mode='bootstrap3')
 
 # Model ve View İçe Aktarmaları
-from app.models import Product, Category, User, Etkinlikler, RezervBasvurulari
+from app.models import Product, Category, User, Etkinlikler, RezervBasvurulari, Newsletter
 from app.my_admin import ProductModelView, CategoryModelView, UserModelView
 from app.auth import auth as auth_blueprint
 
@@ -34,7 +34,6 @@ from app.auth import auth as auth_blueprint
 admin.add_view(UserModelView(User, db.session))
 admin.add_view(ProductModelView(Product, db.session))
 admin.add_view(CategoryModelView(Category, db.session))
-
 
 
 app.register_blueprint(auth_blueprint, url_prefix='/auth')
@@ -80,3 +79,11 @@ if not 'RezervBasvurulari' in locals():
         about_event = db.Column(db.String(100),nullable=False)
 
 admin.add_view(ModelView(RezervBasvurulari,db.session))
+
+if not 'Newsletter' in locals():
+    class Newsletter(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        email = db.Column(db.String(120),nullable=False)
+
+
+admin.add_view(ModelView(Newsletter,db.session))

@@ -1,7 +1,7 @@
 from datetime import datetime
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash,Flask
 from app import app, db
-from app.models import RezervBasvurulari
+from app.models import RezervBasvurulari,Newsletter
 
 @app.route('/')
 def index():
@@ -54,3 +54,25 @@ def submit_form():
         # Veritabanına kaydet
     db.session.add(new_application)
     db.session.commit()
+
+
+@app.route('/abone-form', methods=['GET', 'POST'])
+def abone_form():
+    if request.method == 'POST':
+        email = request.form['mail']
+
+        # Mail adresinin veritabanında olup olmadığını kontrol et
+        existing_entry = Newsletter.query.filter_by(email=email).first()
+
+        if existing_entry:
+            flash('Zaten kayıtlısınız!', 'info')
+        else:
+            new_entry = Newsletter(email=email)
+
+            # Veritabanına kaydet
+            db.session.add(new_entry)
+            db.session.commit()
+
+            flash('yeni kayıt başarılı!', 'success')
+
+    return '', 204

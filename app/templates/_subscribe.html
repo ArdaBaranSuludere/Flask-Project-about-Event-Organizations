@@ -5,11 +5,20 @@
             <h4>Subscribe Our Newsletter:</h4>
         </div>
         <div class="col-lg-8">
-            <form id="subscribe" action="" method="get">
+          {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+          <form id="subscribe" action="{{ url_for('abone_form') }}" method="post">
                 <div class="row">
                   <div class="col-lg-9">
                     <fieldset>
-                      <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
+                      <input name="mail" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
                     </fieldset>
                   </div>
                   <div class="col-lg-3">
