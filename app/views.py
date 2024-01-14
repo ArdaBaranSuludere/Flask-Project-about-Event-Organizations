@@ -109,7 +109,7 @@ def tickets_filtered():
         events = Etkinlikler.query.all()
 
         # Seçilen kriterlere göre etkinlikleri filtrele
-        if selected_month=='Month':
+        if selected_month=='Month' or 'None':
             print("tarihsiz çalıştı")
             events = [event for event in events if event.etkinlik_yeri.strip() == selected_location.strip()]
             
