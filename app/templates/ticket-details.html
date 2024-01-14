@@ -35,18 +35,17 @@
                         </ul>
                         <div class="quantity-content">
                             <div class="left-content">
-                                <p>${{event.bilet_id*45}} per ticket</p>
+                                <p><span id="ticketPrice">${{event.bilet_id * 45}}</span></p>
                             </div>
                             <div class="right-content">
                                 <div class="quantity buttons_added">
                                     <input type="button" value="-" class="minus" onclick="decrement()">
                                     <input type="number" step="1" min="1" max="10" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
                                     <input type="button" value="+" class="plus" onclick="increment()">
-                                </div>
                             </div>
                         </div>
                         <div class="total">
-                            <h4 id="totalPrice">Total: $</h4>
+                            <h4 id="totalPrice">Total: $0.00</h4>
                             <div class="main-dark-button"><a href="#">Purchase Tickets</a></div>
                         </div>
                         <div class="warn">

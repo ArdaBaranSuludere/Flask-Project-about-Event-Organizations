@@ -1,33 +1,28 @@
-// quantity.js
 
-// Başlangıçta sayıyı 1 olarak ayarla
-var quantity = 1;
 
-// Sayfa yüklendiğinde çalışacak olan fonksiyon
-document.addEventListener("DOMContentLoaded", function () {
-    // Başlangıçta total fiyatı güncelle
+var ticketPriceElement = document.getElementById("ticketPrice");
+    var totalPriceElement = document.getElementById("totalPrice");
+    var quantityInput = document.querySelector('input[name="quantity"]');
+
+    // Sayfa yüklendiğinde toplam fiyatı güncelle
     updateTotalPrice();
-});
 
-function increment() {
-    // Sayı 10'dan küçükse ve toplam fiyat 2000'den küçükse sayıyı artır
-    if (quantity < 10) {
-        quantity++;
+    function updateTotalPrice() {
+        var ticketPrice = parseFloat(ticketPriceElement.innerText.replace("$", ""));
+        var quantity = parseInt(quantityInput.value) || 0; // Başlangıç değeri belirle ve NaN durumunu kontrol et
+        var totalPrice = ticketPrice * quantity;
+        totalPriceElement.innerText = "Total: $" + totalPrice.toFixed(2);
+    }
+
+    function increment() {
+        quantityInput.stepUp();
         updateTotalPrice();
     }
-}
 
-function decrement() {
-    // Sayıyı azalt, minimum değer 1
-    if (quantity > 1) {
-        quantity--;
+    function decrement() {
+        quantityInput.stepDown();
         updateTotalPrice();
     }
-}
 
-function updateTotalPrice() {
-    // H4 başlığını güncelle
-    var totalElement = document.getElementById("totalPrice");
-    var totalPrice = quantity * 210;
-    totalElement.innerText = "Total: $" + totalPrice.toFixed(2);
-}
+    // Input değeri değiştiğinde toplam fiyatı güncelle
+    quantityInput.addEventListener('input', updateTotalPrice);
