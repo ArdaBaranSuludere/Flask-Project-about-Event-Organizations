@@ -17,7 +17,8 @@ def about():
 
 @app.route('/shows-events.html')
 def shows_events():
-    return render_template('shows-events.html')
+    events = Etkinlikler.query.all()
+    return render_template('shows-events.html', events=events)
 
 @app.route('/event-details.html')
 def event_details():
