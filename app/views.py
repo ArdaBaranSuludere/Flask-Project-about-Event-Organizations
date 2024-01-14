@@ -11,13 +11,9 @@ def index():
 def about():
     return render_template('about.html')
 
-# @app.route('/tickets.html')
-# def tickets():
-#     return render_template('tickets.html')
 
-@app.route('/ticket-details.html')
-def ticket_details():
-    return render_template('ticket-details.html')
+
+
 
 @app.route('/shows-events.html')
 def shows_events():
@@ -81,6 +77,23 @@ def abone_form():
 def tickets():
     events = Etkinlikler.query.all()
     return render_template('tickets.html', events=events)
+
+
+
+@app.route('/ticket-details', methods=['GET', 'POST'])
+def ticket_details():
+    
+    if request.method == 'POST':
+        etkinlik_adi = request.form.get('etkinlik_adi')
+
+        events = Etkinlikler.query.all()
+
+        if etkinlik_adi:
+            events = [event for event in events if event.etkinlik_ad.strip() == etkinlik_adi]
+
+    return render_template('ticket-details.html', events=events)
+
+
 
 @app.route('/tickets_filtered', methods=['GET', 'POST'])
 def tickets_filtered():

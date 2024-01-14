@@ -16,6 +16,7 @@
         </div>
     </div>
 
+    {% for event in events %}
     <div class="ticket-details-page">
         <div class="container">
             <div class="row">
@@ -26,16 +27,15 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="right-content">
-                        <h4>Sunny Hill Festival</h4>
-                        <span>240 Tickets still available</span>
+                        <h4>{{event.etkinlik_ad}}</h4>
+                        <span>{{event.kapasite}} Tickets still available</span>
                         <ul>
-                            <li><i class="fa fa-clock-o"></i> Thursday 18:00 to 22:00</li>
-                            <li><i class="fa fa-map-marker"></i>Copacabana Beach, Rio de Janeiro</li>
+                            <li><i class="fa fa-clock-o"></i> {{event.etkinlik_tarih}} {{event.etkinlik_baslangic_saati}}:00 to {{event.etkinlik_bitis_saati}}:00</li>
+                            <li><i class="fa fa-map-marker"></i>{{event.etkinlik_yeri}}</li>
                         </ul>
                         <div class="quantity-content">
                             <div class="left-content">
-                                <h6>Standard Ticket</h6>
-                                <p>$65 per ticket</p>
+                                <p>${{event.bilet_id*45}} per ticket</p>
                             </div>
                             <div class="right-content">
                                 <div class="quantity buttons_added">
@@ -57,6 +57,10 @@
             </div>
         </div>
     </div>
+
+    {% endfor %}
+
+    
     <script src="/static/assets/js/islem.js"></script>
 
     {%endblock%}

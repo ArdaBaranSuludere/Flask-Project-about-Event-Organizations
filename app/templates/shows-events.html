@@ -16,6 +16,10 @@
         </div>
     </div>
 
+    {% for event in events %}
+    
+    {% endfor %}
+
     <div class="shows-events-tabs">
         <div class="container">
             <div class="row">
@@ -32,7 +36,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                           <div class="main-dark-button">
-                                              <a href="ticket-details.html">Purchase Tickets</a>
+                                              <a href="{{ url_for('tickets') }}">Purchase Tickets</a>
                                           </div>
                                     </div>
                                 </div>
@@ -124,42 +128,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <div class="event-item">
-                                                        <div class="row">
-                                                            <div class="col-lg-4">
-                                                                <div class="left-content">
-                                                                    <h4>Super Rock Festival</h4>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur do adipiscing eliterirt sed eiusmod alori...</p>
-                                                                    <div class="main-dark-button"><a href="event-details.html">Discover More</a></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="thumb">
-                                                                    <img src="/static/assets/images/event-page-02.jpg" alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="right-content">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <i class="fa fa-clock-o"></i>
-                                                                            <h6>Oct 22 Saturday<br>10:00 AM - 09:00 PM</h6>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-map-marker"></i>
-                                                                            <span>Copacabana Beach, Rio de Janeiro</span>
-                                                                        </li>
-                                                                        <li>
-                                                                            <i class="fa fa-users"></i>
-                                                                            <span>480 Total Guests Attending</span>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="col-lg-12">
                                                     <div class="event-item">
                                                         <div class="row">

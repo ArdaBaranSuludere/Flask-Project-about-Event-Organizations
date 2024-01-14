@@ -16,3 +16,25 @@ function purchaseTickets(selectedLocation) {
 
     form.submit();
 }
+
+
+function purchaseTicketsDetails(etkinlikAdi) {
+    console.log("Selected Etkinlik Adı:", etkinlikAdi);
+
+    // ticket-details endpoint'ine gönderilecek işlemleri yapın
+    // Örneğin, form oluşturup gönderme gibi
+
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "/ticket-details");
+
+    var etkinlikAdiInput = document.createElement("input");
+    etkinlikAdiInput.setAttribute("type", "hidden");
+    etkinlikAdiInput.setAttribute("name", "etkinlik_adi");
+    etkinlikAdiInput.setAttribute("value", etkinlikAdi);
+
+    form.appendChild(etkinlikAdiInput);
+    document.body.appendChild(form);
+
+    form.submit();
+}
