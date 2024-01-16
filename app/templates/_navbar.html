@@ -13,6 +13,7 @@
                     <li><a href="{{ url_for('rent_venue') }}">Rent Venue</a></li>
                     <li><a href="{{ url_for('shows_events') }}">Shows & Events</a></li>
                     <li><a href="{{ url_for('tickets') }}">Tickets</a></li>
+                    <li><a href="{{ url_for('myTickets') }}">My Tickets</a></li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
                         <a href="{{ url_for('admin.index') }}">AdminPanel</a>

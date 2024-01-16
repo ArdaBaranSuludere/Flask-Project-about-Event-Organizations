@@ -75,6 +75,11 @@ def tickets():
     events = Etkinlikler.query.all()
     return render_template('tickets.html', events=events)
 
+@app.route('/my-tickets')
+def myTickets():
+    events = Etkinlikler.query.all()
+    return render_template('my-tickets.html', events=events)
+
 
 
 @app.route('/ticket-details', methods=['GET', 'POST'])

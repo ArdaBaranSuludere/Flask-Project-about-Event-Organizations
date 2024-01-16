@@ -21,14 +21,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="left-image">
+                    <div class="image-container" style="width: 500px;height: 500px; margin-left:20px" id="ticketImageContainer" >
                         <img src="/static/assets/images/ticket-details.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="right-content">
                         <h4>{{event.etkinlik_ad}}</h4>
-                        <span>{{event.kapasite}} Tickets still available</span>
+                        <span id="remainingTickets">{{event.kapasite}} Tickets still available</span>
                         <ul>
                             <li><i class="fa fa-clock-o"></i> {{event.etkinlik_tarih}} {{event.etkinlik_baslangic_saati}}:00 to {{event.etkinlik_bitis_saati}}:00</li>
                             <li><i class="fa fa-map-marker"></i>{{event.etkinlik_yeri}}</li>
@@ -42,11 +42,12 @@
                                     <input type="button" value="-" class="minus" onclick="decrement()">
                                     <input type="number" step="1" min="1" max="10" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode="">
                                     <input type="button" value="+" class="plus" onclick="increment()">
+                                </div>
                             </div>
                         </div>
                         <div class="total">
                             <h4 id="totalPrice">Total: $0.00</h4>
-                            <div class="main-dark-button"><a href="#">Purchase Tickets</a></div>
+                            <div class="main-dark-button"><a href="#" onclick="purchaseTickets()">Purchase Tickets</a></div>
                         </div>
                         <div class="warn">
                             <p>*You Can Only Buy 10 Tickets For This Show</p>
@@ -59,6 +60,39 @@
 
     {% endfor %}
 
+    <style>
+        .image-container {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            // Ticket resimlerinin listesi
+            var ticketImages = [
+                "venue-01.jpg",
+                "venue-02.jpg",
+                "venue-03.jpg"                
+            ];
+    
+            // Rastgele bir sayı üretme fonksiyonu
+            function getRandomNumber(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+    
+            // Rastgele bir resim seçme ve gösterme
+            var randomImageIndex = getRandomNumber(0, ticketImages.length - 1);
+            var randomImageSrc = "/static/assets/images/" + ticketImages[randomImageIndex];
+    
+            // Container elementini seçme
+            var ticketImageContainer = document.getElementById("ticketImageContainer");
+    
+            // Container içindeki img elementini güncelleme
+            ticketImageContainer.innerHTML = '<img src="' + randomImageSrc + '" alt="">';
+        });
+    </script>
     
     <script src="/static/assets/js/islem.js"></script>
 
