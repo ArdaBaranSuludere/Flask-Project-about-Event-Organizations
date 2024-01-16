@@ -1,29 +1,24 @@
+
 {% extends 'base.html' %}
- {% block title %}About{%endblock%}
+{% block title %}About{% endblock %}
 
-{%block content%}
-
-<div class="col-lg-4">
-    <div class="ticket-item">
-        <div class="thumb">
-            <img src="/static/assets/images/ticket-01.jpg" alt="">
-            <div class="price">
-                <span>1 ticket<br>from <em>${{event.bilet_id*45}}</em></span>
+{% block content %}
+<div class="row">
+    {% for etkinlik in current_user.etkinliks %}
+        <div class="col-lg-4">
+            <div class="ticket-item">
+                <div class="thumb">
+                    <img src="/static/assets/images/ticket-01.jpg" alt="">
+                </div>
+                <div class="down-content">
+                    <h4>{{ etkinlik.etkinlik_ad }}</h4>
+                    <ul>
+                        <li><i class="fa fa-clock-o"></i> {{ etkinlik.etkinlik_tarih }} {{ etkinlik.etkinlik_baslangic_saati }}:00 to {{ etkinlik.etkinlik_bitis_saati }}:00</li>
+                        <li><i class="fa fa-map-marker">{{ etkinlik.etkinlik_yeri }}</i></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="down-content">
-            <span>There Are {{event.kapasite}} Tickets Left For This Show</span>
-            <h4>{{event.etkinlik_ad}}</h4>
-            <ul>
-                <li><i class="fa fa-clock-o"></i> {{event.etkinlik_tarih}} {{event.etkinlik_baslangic_saati}}:00 to {{event.etkinlik_bitis_saati}}:00</li>
-                <li><i class="fa fa-map-marker"></i>{{event.etkinlik_yeri}}</li>
-            </ul>
-            <div class="main-dark-button">
-                <a href="#" onclick="purchaseTicketsDetails('{{ event.etkinlik_ad }}')">Purchase Tickets</a>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
-
-
-{%endblock%}
+{% endblock %}

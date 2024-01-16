@@ -1,6 +1,10 @@
+
+#views.py
+
 from datetime import datetime
 from flask import render_template, redirect, url_for, request, flash,Flask
 from app import app, db
+from flask_login import current_user, login_required
 from app.models import RezervBasvurulari,Newsletter,Etkinlikler
 
 @app.route('/')
@@ -70,18 +74,29 @@ def abone_form():
 
     return '', 204
 
+
 @app.route('/tickets')
 def tickets():
     events = Etkinlikler.query.all()
     return render_template('tickets.html', events=events)
 
-@app.route('/my-tickets', methods=['GET'])
-def myTickets():
-    events = Etkinlikler.query.all()
-    events = [event for event in events if event.etkinlik_yeri.strip() == 'Radio City Musical Hall']
 
-    return render_template('my-tickets.html', events=events)
+@app.route('/my-tickets')
+@login_required
+def my_tickets():
+    return render_template('my-tickets.html',etkinliks=current_user.etkinliks)
 
+
+@app.route('/buy_tickets/<int:etkinlik_id>', methods=['GET', 'POST'])
+@login_required
+def buy_purchase(etkinlik_id):
+    etkinlik = Etkinlikler.query.get(etkinlik_id)
+    if etkinlik and etkinlik_id != current_user.id:
+        current_user.etkinliks.append(etkinlik)
+        db.session.commit()
+        return redirect(url_for('tickets'))
+    
+    return render_template('index.html')
 
 
 @app.route('/ticket-details', methods=['GET', 'POST'])
@@ -96,7 +111,6 @@ def ticket_details():
             events = [event for event in events if event.etkinlik_ad.strip() == etkinlik_adi]
 
     return render_template('ticket-details.html', events=events)
-
 
 
 @app.route('/tickets_filtered', methods=['GET', 'POST'])

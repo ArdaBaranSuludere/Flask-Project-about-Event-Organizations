@@ -3,21 +3,21 @@
     <div class="row">
         <div class="col-12">
             <nav class="main-nav">
-                <!-- ***** Logo Start ***** -->
                 <a href="/" class="logo">Art<em>Xibition</em></a>
-                <!-- ***** Logo End ***** -->
-                <!-- ***** Menu Start ***** -->
                 <ul class="nav">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
                     <li><a href="{{ url_for('about') }}">About Us</a></li>
                     <li><a href="{{ url_for('rent_venue') }}">Rent Venue</a></li>
                     <li><a href="{{ url_for('shows_events') }}">Shows & Events</a></li>
                     <li><a href="{{ url_for('tickets') }}">Tickets</a></li>
-                    <li><a href="{{ url_for('myTickets') }}">My Tickets</a></li>
+                    <li><a href="{{ url_for('my_tickets') }}">My Tickets</a></li>
+                    
                     {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a href="{{ url_for('admin.index') }}">AdminPanel</a>
-                    </li>
+                        {% if current_user.is_admin %}
+                            <li class="nav-item">
+                                <a href="{{ url_for('admin.index') }}">AdminPanel</a>
+                            </li>
+                        {% endif %}
                     <li class="nav-item">
                         <a href="{{ url_for('auth.logout') }}">Logout</a>
                     </li>
@@ -33,7 +33,6 @@
                 <a class='menu-trigger'>
                     <span>Menu</span>
                 </a>
-                <!-- ***** Menu End ***** -->
             </nav>
         </div>
     </div>
