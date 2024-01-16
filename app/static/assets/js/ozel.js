@@ -7,7 +7,7 @@ function purchaseTickets(selectedLocation) {
 
     var locationInput = document.createElement("input");
     locationInput.setAttribute("type", "hidden");
-    locationInput.setAttribute("name", "location");
+    locationInput.setAttribute("name", "Location");
     locationInput.setAttribute("value", selectedLocation);
 
     form.appendChild(locationInput);

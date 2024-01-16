@@ -64,13 +64,11 @@ class Cart(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     items = db.relationship('CartItem', backref='cart', lazy=True)
 
-
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
     quantity = db.Column(db.Integer, default=1, nullable=False)
-
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -96,5 +94,9 @@ class Category(db.Model):
 
     def __repr__(self):
         return f'<Category {self.name}>'
+    
+# user_courses = db.Table('user_tickets',
+#     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+#     db.Column('course_id', db.Integer, db.ForeignKey('course.id')))
 
 # forms.py

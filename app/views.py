@@ -11,10 +11,6 @@ def index():
 def about():
     return render_template('about.html')
 
-
-
-
-
 @app.route('/shows-events.html')
 def shows_events():
     events = Etkinlikler.query.all()
@@ -109,7 +105,7 @@ def tickets_filtered():
         events = Etkinlikler.query.all()
 
         # Seçilen kriterlere göre etkinlikleri filtrele
-        if selected_month=='Month' or 'None':
+        if selected_month=='Month' or selected_month=='None':
             print("tarihsiz çalıştı")
             events = [event for event in events if event.etkinlik_yeri.strip() == selected_location.strip()]
             
