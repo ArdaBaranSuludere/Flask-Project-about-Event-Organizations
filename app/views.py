@@ -75,9 +75,11 @@ def tickets():
     events = Etkinlikler.query.all()
     return render_template('tickets.html', events=events)
 
-@app.route('/my-tickets')
+@app.route('/my-tickets', methods=['GET'])
 def myTickets():
     events = Etkinlikler.query.all()
+    events = [event for event in events if event.etkinlik_yeri.strip() == 'Radio City Musical Hall']
+
     return render_template('my-tickets.html', events=events)
 
 

@@ -1,5 +1,4 @@
 
-
     var ticketPriceElement = document.getElementById("ticketPrice");
     var totalPriceElement = document.getElementById("totalPrice");
     var quantityInput = document.querySelector('input[name="quantity"]');

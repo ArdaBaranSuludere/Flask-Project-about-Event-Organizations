@@ -1,3 +1,4 @@
+
 function purchaseTickets(selectedLocation) {
     console.log("Selected Location:", selectedLocation);
 
@@ -20,9 +21,6 @@ function purchaseTickets(selectedLocation) {
 
 function purchaseTicketsDetails(etkinlikAdi) {
     console.log("Selected Etkinlik Adı:", etkinlikAdi);
-
-    // ticket-details endpoint'ine gönderilecek işlemleri yapın
-    // Örneğin, form oluşturup gönderme gibi
 
     var form = document.createElement("form");
     form.setAttribute("method", "POST");
