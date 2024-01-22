@@ -48,9 +48,6 @@ from app.models import User
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
-
-
 @app.before_request
 def before_request():
     if "/admin" in request.url:

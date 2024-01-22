@@ -28,10 +28,8 @@ def event_details():
 def rent_venue():
     return render_template('rent-venue.html')
 
-@app.route('/submit-form',methods=['GET', 'POST'])
+@app.route('/submit-form',methods=['POST'])
 def submit_form():
-    if request.method == 'POST':
-        # Formdan gelen verileri al
         email = request.form['email']
         name = request.form['name']
         phone_number = request.form['phone_number']
@@ -41,16 +39,16 @@ def submit_form():
         date_requested_primary = datetime.strptime(request.form['date_requested_primary'], '%Y-%m-%d').date()
         date_requested_secondary = datetime.strptime(request.form['date_requested_secondary'], '%Y-%m-%d').date()
         about_event = request.form['about_event']
-        return f"Form submitted successfully."
-    
-    new_application = RezervBasvurulari(email=email, name=name, phone_number=phone_number, company=company,
+        
+        new_application = RezervBasvurulari(email=email, name=name, phone_number=phone_number, company=company,
                                             venue_requested=venue_requested, type_of_event=type_of_event,
                                             date_requested_primary=date_requested_primary,
                                             date_requested_secondary=date_requested_secondary, about_event=about_event)
 
-        # Veritabanına kaydet
-    db.session.add(new_application)
-    db.session.commit()
+        db.session.add(new_application)
+        db.session.commit()
+
+        return render_template('rent-venue.html')
 
 
 @app.route('/abone-form', methods=['GET', 'POST'])
@@ -58,7 +56,6 @@ def abone_form():
     if request.method == 'POST':
         email = request.form['mail']
 
-        # Mail adresinin veritabanında olup olmadığını kontrol et
         existing_entry = Newsletter.query.filter_by(email=email).first()
 
         if existing_entry:
@@ -66,7 +63,6 @@ def abone_form():
         else:
             new_entry = Newsletter(email=email)
 
-            # Veritabanına kaydet
             db.session.add(new_entry)
             db.session.commit()
 
@@ -116,34 +112,25 @@ def ticket_details():
 @app.route('/tickets_filtered', methods=['GET', 'POST'])
 def tickets_filtered():
     if request.method == 'POST':
-        # Formdan gelen verileri al
+
         selected_month = request.form.get('month')
         selected_location = request.form.get('location')
-        print("Selected Month:", selected_month)
-        print("Selected Location:", selected_location)
 
-        # Tüm etkinlikleri veritabanından al
         events = Etkinlikler.query.all()
 
-        # Seçilen kriterlere göre etkinlikleri filtrele
         if selected_month=='Month' or selected_month=='None':
-            print("tarihsiz çalıştı")
             events = [event for event in events if event.etkinlik_yeri.strip() == selected_location.strip()]
             
         elif selected_location=='Location':
-            print("lokasyonsuz çalıştı")
             events = [event for event in events if event.etkinlik_tarih.strftime('%B') == selected_month]
             
         else:
             if selected_month and selected_month.strip() != "" and selected_location and selected_location.strip() != "":
                 events = [event for event in events if event.etkinlik_yeri.strip() ==
                            selected_location.strip() and event.etkinlik_tarih.strftime('%B') == selected_month.strip()]
-            print("ikili çalıştı")
         
         return render_template('tickets.html', events=events)
     else:
-        # GET isteği için tüm etkinlikleri direkt olarak gönder
         events = Etkinlikler.query.all()
         events = [event for event in events if event.etkinlik_yeri.strip() == 'Radio City Musical Hall']
-        print("else çalıştı")
         return render_template('tickets.html', events=events)

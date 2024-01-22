@@ -66,57 +66,5 @@ if not 'Newsletter' in locals():
         def __repr__(self):
             return f'<Newsletter {self.email}>'
 
-class Movie(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    year = db.Column(db.Integer, nullable=False)  # Yayın yılı
-    director = db.Column(db.String(100), nullable=False)  # Yönetmen
-    actors = db.Column(db.String(250))  # Oyuncular (virgülle ayrılmış liste olarak)
-    poster_url = db.Column(db.String(250))  # Film posteri için URL
-    price = db.Column(db.Float, nullable=False)  # Fiyat
-    stock = db.Column(db.Integer, nullable=False)  # Stok
-
-    def __repr__(self):
-        return f'<Movie {self.title}>'
-
-
-
-class Cart(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    items = db.relationship('CartItem', backref='cart', lazy=True)
-
-class CartItem(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
-    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
-    quantity = db.Column(db.Integer, default=1, nullable=False)
-
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    price = db.Column(db.Float, nullable=False)
-    stock = db.Column(db.Integer, default=0, nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)  # Kategori ilişkisi
-    category = db.relationship('Category', backref=db.backref('products', lazy=True))
-    brand = db.Column(db.String(100), nullable=True)  # Marka
-    image_url = db.Column(db.String(255), nullable=True)  # Ürün resmi URL'si
-    color = db.Column(db.String(50))  # Ürün rengi
-    size = db.Column(db.String(50))  # Ürün boyutu
-    weight = db.Column(db.Float)  # Ürün ağırlığı
-    is_active = db.Column(db.Boolean, default=True)  # Ürünün aktif/pasif durumu
-
-    def __repr__(self):
-        return f'<Product {self.name}>'
-
-class Category(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-
-    def __repr__(self):
-        return f'<Category {self.name}>'
-    
 # forms.py
     
